@@ -1,4 +1,4 @@
-package com.chirag.cloud.azure.computerVision;
+package com.chirag.cloud.azure.computervision;
 
 public class App {
 

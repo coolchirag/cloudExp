@@ -2,7 +2,7 @@ package com.chirag.azureComputerVision;
 
 import org.junit.Test;
 
-import com.chirag.cloud.azure.computerVision.App;
+import com.chirag.cloud.azure.computervision.App;
 
 public class AppTest {
 

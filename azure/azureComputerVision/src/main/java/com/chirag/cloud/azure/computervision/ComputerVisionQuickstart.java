@@ -1,4 +1,4 @@
-package com.chirag.cloud.azure.computerVision;
+package com.chirag.cloud.azure.computervision;
 
 import com.microsoft.azure.cognitiveservices.vision.computervision.*;
 import com.microsoft.azure.cognitiveservices.vision.computervision.implementation.ComputerVisionImpl;

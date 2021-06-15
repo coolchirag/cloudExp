@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.chirag.cloud.azure</groupId>
-	<artifactId>computerVision</artifactId>
+	<artifactId>computer-vision</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>azureComputerVision</name>
+	<name>azure-computer-vision</name>
 	<url>http://example.com</url>
 
 	<properties>
