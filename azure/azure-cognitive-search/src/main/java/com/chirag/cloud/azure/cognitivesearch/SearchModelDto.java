@@ -29,7 +29,23 @@ public class SearchModelDto {
 		private String label;
 		private String booktype;
 		private List<String> codes;
+		private String name_cm;
+		private Integer parent_id;
 		
+		
+		
+		public String getName_cm() {
+			return name_cm;
+		}
+		public void setName_cm(String name_cm) {
+			this.name_cm = name_cm;
+		}
+		public Integer getParent_id() {
+			return parent_id;
+		}
+		public void setParent_id(Integer parent_id) {
+			this.parent_id = parent_id;
+		}
 		public String getLabel() {
 			return label;
 		}
@@ -50,7 +66,8 @@ public class SearchModelDto {
 		}
 		@Override
 		public String toString() {
-			return "Fields [label=" + label + ", booktype=" + booktype + ", codes=" + codes + "]";
+			return "Fields [label=" + label + ", booktype=" + booktype + ", codes=" + codes + ", name_cm=" + name_cm
+					+ ", parent_id=" + parent_id + "]";
 		}
 		
 		

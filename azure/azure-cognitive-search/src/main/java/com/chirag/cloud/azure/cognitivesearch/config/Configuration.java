@@ -13,14 +13,14 @@ public class Configuration {
 			synchronized (Configuration.class) {
 				if(searchClient == null) {
 					searchClient = new SearchClientBuilder()
-							.endpoint("https://int-codebook-index.search.azure.us")
-							.credential(new AzureKeyCredential("83800877726D4E44B98D65027882F7C4"))
-							.indexName("intcodebookindex")
+							.endpoint("https://int-coding-platform-search-service.search.azure.us")
+							//.endpoint("https://localhost:8085")
+							.credential(new AzureKeyCredential("6B83509A84C1A0941F3AE3008BD0BEA9"))
+							.indexName("new-codebook-index")
 							.buildClient();
 				}
 			}
 		}
-		searchClient.search("i10");
 		return searchClient;
 	}
 }
