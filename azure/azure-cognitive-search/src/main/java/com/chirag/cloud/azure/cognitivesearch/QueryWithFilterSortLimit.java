@@ -17,12 +17,13 @@ public class QueryWithFilterSortLimit {
 		//options.setFilter("booktype:ICD10D");
 		options.setFilter("fields/parent_id eq 2");
 		options.setQueryType(QueryType.SIMPLE);
-		options.setSelect("id","fields/id","fields/label","fields/parent_id","fields/name_cm");
+		options.setSelect("id","fields/id","fields/label","fields/parent_id","fields/name_cm", "fields/booktype");
 		
 		
 		SearchPagedIterable searchPagedIterable = searchClient.search(query, options, Context.NONE);
 		searchPagedIterable.forEach(result -> {
 			SearchModelDto document = result.getDocument(SearchModelDto.class);
+			
 			System.out.println(document);
 		});
 	}

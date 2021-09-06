@@ -16,7 +16,7 @@ public class Configuration {
 							.endpoint("https://int-coding-platform-search-service.search.azure.us")
 							//.endpoint("https://localhost:8085")
 							.credential(new AzureKeyCredential("6B83509A84C1A0941F3AE3008BD0BEA9"))
-							.indexName("new-codebook-index")
+							.indexName("int-encoder-code-recomm-code")
 							.buildClient();
 				}
 			}
