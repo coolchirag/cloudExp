@@ -18,8 +18,8 @@ import reactor.core.publisher.Flux;
 @Service
 public class ServiceBusService {
 	
-	private String connectionUrl = "sb://int-coding-platform-service-bus.servicebus.usgovcloudapi.net/";
-	private String sharedKey = "Ui/mfhYXiWqgLtFwE+u5+GvpEbf8H/kXoy5Z2PLGAMs=";
+	private String connectionUrl = "sb://<connectionUrl>/";
+	private String sharedKey = "<sharedKey>";
 
 	public ServiceBusSenderClient getSreviceBusSenderClient(final String queueName)
 			throws Exception {

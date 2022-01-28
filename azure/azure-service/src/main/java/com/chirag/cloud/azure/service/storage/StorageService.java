@@ -21,7 +21,8 @@ public class StorageService {
 	public CloudBlobClient getCloudStorageClient() {
 		CloudStorageAccount account = null;
 		try {
-			account = CloudStorageAccount.parse("DefaultEndpointsProtocol=https;AccountName=qacodingplatformsa;AccountKey=3QSj6nS5q3aZjm2CVI+TgnMv4fK39KYTe/WVplz8iOSmAJ/IONiqlF3Jog/GJK/YxbVH3GK5RT6BrQhgVjEOyg==;EndpointSuffix=core.usgovcloudapi.net");
+			String connectionString = "DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
+			account = CloudStorageAccount.parse(connectionString);
 		} catch (InvalidKeyException | URISyntaxException e) {
 			e.printStackTrace();
 		}
@@ -30,7 +31,7 @@ public class StorageService {
 	
 	public void downloadFile(final String containerName, final String fileNameOnStorage, final String downloadFilePath)
             throws Exception {
-		String cloudPath = "inbound/KPMG/Test/pdftotext";
+		String cloudPath = "KPMG/test1";
         CloudBlobContainer container = getCloudStorageClient().getContainerReference(containerName);
         CloudBlockBlob blob = container.getBlockBlobReference(fileNameOnStorage);
 
@@ -41,4 +42,31 @@ public class StorageService {
 
         blob.download(outputStream);
     }
+	
+	public String downloadData(final String bucketName, final String fileNameOnStorage)
+            throws Exception {
+
+       
+		String cloudPath = "KPMG/test1/";
+        CloudBlobContainer container = getCloudStorageClient().getContainerReference(bucketName);
+        CloudBlockBlob blob = container.getBlockBlobReference(cloudPath+fileNameOnStorage);
+
+        String data = blob.downloadText();
+
+        return data;
+    }
+	
+	public byte[] downloadByteData(final String bucketName, final String fileNameOnStorage)
+            throws Exception {
+		String cloudPath = "KPMG/test1/";
+        CloudBlobContainer container = getCloudStorageClient().getContainerReference(bucketName);
+        CloudBlockBlob blob = container.getBlockBlobReference(cloudPath+fileNameOnStorage);
+        blob.downloadAttributes();
+        long fileByteLength = blob.getProperties().getLength();
+        byte[] fileContent = new byte[Math.toIntExact(fileByteLength)];
+        blob.downloadToByteArray(fileContent, 0);
+
+        return fileContent;
+    }
+
 }
