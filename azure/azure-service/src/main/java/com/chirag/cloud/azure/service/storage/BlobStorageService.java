@@ -1,0 +1,95 @@
+package com.chirag.cloud.azure.service.storage;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.springframework.stereotype.Service;
+
+import com.azure.core.util.BinaryData;
+import com.azure.identity.DefaultAzureCredential;
+import com.azure.identity.DefaultAzureCredentialBuilder;
+import com.azure.identity.ManagedIdentityCredential;
+import com.azure.identity.ManagedIdentityCredentialBuilder;
+import com.azure.messaging.servicebus.ServiceBusSenderClient;
+import com.azure.storage.blob.BlobClient;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobContainerClientBuilder;
+import com.azure.storage.blob.BlobServiceClient;
+import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.blob.models.BlobProperties;
+
+@Service
+public class BlobStorageService {
+	
+	private BlobContainerClient blobContainerClient;
+	
+	private final String managedIdentityClientId = "<MagedIdentityClientId>";
+	
+	private final String endPoint="https://<HostName>/<ContainerName>";
+	
+	
+	private String connectionString = "DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
+	//Get connectionSTring from "Access keys"
+	
+	public void BlobStorageService2() {
+		BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
+		blobContainerClient = blobServiceClient.getBlobContainerClient("test-container");
+	}
+
+	public BlobStorageService() {
+		//For managedIdentity
+		
+		//DefaultAzureCredential credential2 = new DefaultAzureCredentialBuilder().managedIdentityClientId(managedIdentityClientId).build();
+		ManagedIdentityCredential credential = new ManagedIdentityCredentialBuilder().clientId(managedIdentityClientId).build();
+		BlobContainerClientBuilder blobContainerClientBuilder = new BlobContainerClientBuilder();
+		blobContainerClientBuilder.credential(credential);
+		blobContainerClientBuilder.endpoint(endPoint);
+		
+		this.blobContainerClient = blobContainerClientBuilder.buildClient();
+	}
+	
+	public String downloadData() {
+		BlobClient blobClient = blobContainerClient.getBlobClient("test_file.txt");
+		/*
+		 * Path tempFile = Files.createTempFile("temp_file", ".txt"); FileOutputStream
+		 * fileOutputStream = new FileOutputStream(tempFile.toFile());
+		 */
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		BlobProperties properties = blobClient.getProperties();
+		System.out.println(properties.getLastModified()+":"+properties.getBlobSize());
+		//BinaryData downloadContent = blobClient.downloadContent(); 
+		blobClient.downloadStream(bos);
+		return bos.toString();
+		//return downloadContent.toString();
+	}
+	
+	public String uploadData() {
+		if(blobContainerClient.exists()) {
+			System.out.println("-------------Container is exisit");
+		} else {
+			System.out.println("-------------Container is not exisit");
+			blobContainerClient.create();
+		}
+		String data = "Hello all datafor test";
+		byte[] byteArray = data.getBytes();
+		
+		BlobClient blobClient = blobContainerClient.getBlobClient("new-test-blob");
+		InputStream is = new ByteArrayInputStream(byteArray);
+		blobClient.upload(is, data.length());
+		try {
+			is.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("----------_File uploading done");
+		return "Done";
+	}
+	
+
+}

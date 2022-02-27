@@ -21,7 +21,7 @@ public class ThreadForServiceBusMsgRenew implements Runnable {
 	public void run() {
 		OffsetDateTime expiresAt = msg.getLockedUntil();
 		while (true) {
-			
+
 			Long expLong = expiresAt.toInstant().toEpochMilli();
 			System.out.println(expiresAt + " : " + expLong);
 			OffsetDateTime now = OffsetDateTime.now();
@@ -35,7 +35,6 @@ public class ThreadForServiceBusMsgRenew implements Runnable {
 				try {
 					Thread.sleep(diff);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
