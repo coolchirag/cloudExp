@@ -30,7 +30,8 @@ public class BlobStorageService {
 	
 	private final String managedIdentityClientId = "<MagedIdentityClientId>";
 	
-	private final String endPoint="https://<HostName>/<ContainerName>";
+	private final String endPoint="https://<HostName>/";
+	//From "Endpoints" -> "BlobService"
 	
 	
 	private String connectionString = "DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
@@ -46,11 +47,21 @@ public class BlobStorageService {
 		
 		//DefaultAzureCredential credential2 = new DefaultAzureCredentialBuilder().managedIdentityClientId(managedIdentityClientId).build();
 		ManagedIdentityCredential credential = new ManagedIdentityCredentialBuilder().clientId(managedIdentityClientId).build();
-		BlobContainerClientBuilder blobContainerClientBuilder = new BlobContainerClientBuilder();
-		blobContainerClientBuilder.credential(credential);
-		blobContainerClientBuilder.endpoint(endPoint);
+		BlobServiceClient blobServiceClient = new BlobServiceClientBuilder()
+				.credential(credential)
+				.endpoint(endPoint)
+				.buildClient();
 		
-		this.blobContainerClient = blobContainerClientBuilder.buildClient();
+		/*Second way
+		 * BlobContainerClientBuilder blobContainerClientBuilder = new
+		 * BlobContainerClientBuilder();
+		 * blobContainerClientBuilder.credential(credential);
+		 * blobContainerClientBuilder.endpoint(endPoint+<ContainerName>);
+		 * 
+		 * this.blobContainerClient = blobContainerClientBuilder.buildClient();
+		 */
+		
+		this.blobContainerClient = blobServiceClient.getBlobContainerClient("test-container");
 	}
 	
 	public String downloadData() {
