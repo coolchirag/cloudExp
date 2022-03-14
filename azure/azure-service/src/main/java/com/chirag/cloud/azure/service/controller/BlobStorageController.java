@@ -27,4 +27,11 @@ public class BlobStorageController {
 		String data = blobStorageService.uploadData();
 		return new ResponseEntity<String>(data, HttpStatus.OK);
 	}
+	
+	@GetMapping("/fileTransfer")
+	public ResponseEntity<String> TransferFile() throws Exception {
+		blobStorageService.copyFile("test-container", "file_2021_09_02_0_5.pdf", "test-container", "cfile_2021_09_02_0_5.pdf");
+		//blobStorageService.deleteFile("test-container", "file_2021_09_02_0_5.pdf");
+		return new ResponseEntity<String>("DOne", HttpStatus.OK);
+	}
 }

@@ -26,6 +26,7 @@ import com.azure.storage.blob.models.BlobProperties;
 @Service
 public class BlobStorageService {
 	
+	private BlobServiceClient blobServiceClient;
 	private BlobContainerClient blobContainerClient;
 	
 	private final String managedIdentityClientId = "<MagedIdentityClientId>";
@@ -34,15 +35,16 @@ public class BlobStorageService {
 	//From "Endpoints" -> "BlobService"
 	
 	
-	private String connectionString = "DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
+	private String connectionString ="DefaultEndpointsProtocol=https;AccountName=devcodingplatformsa;AccountKey=50gWg+XK4WpnbDs0/owHh0xECWfGoQ2PwvUYuRog0qolyGhiQndnRMEiqNEgsO2ZQlN3Iqedk7mLBReL8e0Fow==;EndpointSuffix=core.usgovcloudapi.net"; 
+			//"DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
 	//Get connectionSTring from "Access keys"
 	
-	public void BlobStorageService2() {
-		BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
+	public BlobStorageService() {
+		blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
 		blobContainerClient = blobServiceClient.getBlobContainerClient("test-container");
 	}
 
-	public BlobStorageService() {
+	public void BlobStorageService1() {
 		//For managedIdentity
 		
 		//DefaultAzureCredential credential2 = new DefaultAzureCredentialBuilder().managedIdentityClientId(managedIdentityClientId).build();
@@ -102,5 +104,29 @@ public class BlobStorageService {
 		return "Done";
 	}
 	
+	public void copyFile(String sourceBucketName, String sourceFilePath, String destinationBucketName, String destinationFilePath) throws Exception {
+
+		//BlobServiceClient blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
+		
+        BlobContainerClient sourceContainer = blobServiceClient.getBlobContainerClient(sourceBucketName); 
+        BlobClient sourceBlob = sourceContainer.getBlobClient(sourceFilePath);
+
+        BlobContainerClient destContainer = blobServiceClient.getBlobContainerClient(destinationBucketName); 
+        BlobClient destBlob = destContainer.getBlobClient(destinationFilePath);
+        
+        destBlob.copyFromUrl(sourceBlob.getBlobUrl());
+
+        
+    }
+	
+	public void deleteFile(final String bucketName, final String fileNameOnStorage)
+			throws Exception {
+		BlobContainerClient container = blobServiceClient.getBlobContainerClient(bucketName);
+		BlobClient blob = container.getBlobClient(fileNameOnStorage);
+
+		if (blob.exists()) {
+			blob.delete();
+		}
+	}
 
 }

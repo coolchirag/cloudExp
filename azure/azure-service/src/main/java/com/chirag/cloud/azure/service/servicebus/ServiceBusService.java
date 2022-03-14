@@ -20,12 +20,15 @@ import reactor.core.publisher.Flux;
 @Service
 public class ServiceBusService {
 
-	private String connectionUrl ="Endpoint=sb://<hostname>/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<sharedAccessKey>"; 
+	private String connectionUrl = "Endpoint=sb://dev-coding-platform-service-bus.servicebus.usgovcloudapi.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=hyFU6K73qveK2grMr25YkzQG/b4zsk6Jvtrwb9byqfI=";
+			//"Endpoint=sb://<hostname>/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<sharedAccessKey>"; 
 	//GetConnectionString from "Shared access policies" -> select policy		
 	
-	private String fullyQualifiedNameSpace = "<HostName>";
+	private String fullyQualifiedNameSpace ="dev-coding-platform-service-bus.servicebus.usgovcloudapi.net"; 
+			//"<HostName>";
 	
-	private final String managedIdentityClientId = "<MagedIdentityClientId>";
+	private final String managedIdentityClientId = "4588566e-6c59-47be-a2a4-7b4b57136238";
+			//"<MagedIdentityClientId>";
 
 	public ServiceBusSenderClient getSreviceBusSenderClient(final String queueName) throws Exception {
 		return new ServiceBusClientBuilder()
@@ -81,12 +84,12 @@ public class ServiceBusService {
 	}
 
 	public IterableStream<ServiceBusReceivedMessage> receiveQueueMessage(ServiceBusReceiverClient receiverClient) {
-		return receiverClient.receiveMessages(1);
+		return receiveQueueMessage(receiverClient, 1);
 	}
 
 	public IterableStream<ServiceBusReceivedMessage> receiveQueueMessage(ServiceBusReceiverClient receiverClient,
 			int messageCount) {
-		return receiverClient.receiveMessages(messageCount, Duration.ofSeconds(20));
+		return receiverClient.receiveMessages(messageCount, Duration.ofSeconds(5));
 	}
 
 	public Flux<ServiceBusReceivedMessage> receiveQueueMessageAsync(ServiceBusReceiverAsyncClient receiverClient) {
