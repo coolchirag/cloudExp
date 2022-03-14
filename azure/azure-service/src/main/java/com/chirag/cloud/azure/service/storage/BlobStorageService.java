@@ -35,8 +35,7 @@ public class BlobStorageService {
 	//From "Endpoints" -> "BlobService"
 	
 	
-	private String connectionString ="DefaultEndpointsProtocol=https;AccountName=devcodingplatformsa;AccountKey=50gWg+XK4WpnbDs0/owHh0xECWfGoQ2PwvUYuRog0qolyGhiQndnRMEiqNEgsO2ZQlN3Iqedk7mLBReL8e0Fow==;EndpointSuffix=core.usgovcloudapi.net"; 
-			//"DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
+	private String connectionString ="DefaultEndpointsProtocol=https;AccountName=<StorageAccountName>;AccountKey=<accesskey>;EndpointSuffix=<sufixData>";
 	//Get connectionSTring from "Access keys"
 	
 	public BlobStorageService() {

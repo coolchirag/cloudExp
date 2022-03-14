@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AzureAdSecurityService {
 
-	private String clientId = "a694f15e-6ace-4e68-880f-e2f3cdfed6e1";
+	private String clientId = "";
 	private String redirectUrl = "http://localhost:8080/azurelogin";
 	
 	public String getAzureAdLoginUrl() {
