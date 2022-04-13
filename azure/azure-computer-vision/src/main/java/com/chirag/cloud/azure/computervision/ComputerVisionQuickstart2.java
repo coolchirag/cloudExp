@@ -25,8 +25,8 @@ import rx.observables.BlockingObservable;
 
 public class ComputerVisionQuickstart2 {
 
-    static String subscriptionKey = "1a2e9e0922dc4df88873edec2f44107b";
-    static String endpoint = "https://intezdicomputervision.cognitiveservices.azure.us/";
+	static String subscriptionKey = "<subcription-key>";
+    static String endpoint = "<endpoint-url>";
     
 private static final Set<String> ALLOWED_FILE_FORMATES = new HashSet<String>();
 	
@@ -48,7 +48,7 @@ private static final Set<String> ALLOWED_FILE_FORMATES = new HashSet<String>();
         compVisClient = Authenticate(subscriptionKey, endpoint);
      // Read from local file
         String loc1 = ReadFromFile();
-        
+        System.out.println(loc1);
         //String loc2 = ReadFromFile();
         
         
@@ -71,7 +71,7 @@ private static final Set<String> ALLOWED_FILE_FORMATES = new HashSet<String>();
     private static String ReadFromFile() throws InterruptedException, IOException {
         System.out.println("-----------------------------------------------");
         
-        String localFilePath = "src/main/resources/myImage.jpg";
+        String localFilePath = "/home/chiragjivani/data/kpmg/temp/cctest_2021_1.pdf";
         //String localFilePath = "src/main/resources/test1.png";
         System.out.println("Read with local file: " + localFilePath);
         System.out.println("extention : "+ localFilePath.substring(localFilePath.lastIndexOf(".")+1));

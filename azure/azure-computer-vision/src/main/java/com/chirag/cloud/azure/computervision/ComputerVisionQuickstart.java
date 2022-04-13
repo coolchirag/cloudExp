@@ -13,8 +13,8 @@ import java.util.UUID;
 
 public class ComputerVisionQuickstart {
 
-    static String subscriptionKey = "1a2e9e0922dc4df88873edec2f44107b";
-    static String endpoint = "https://intezdicomputervision.cognitiveservices.azure.us/";
+    static String subscriptionKey = "<subcription-key>";
+    static String endpoint = "<endpoint-url>";
     
     public static void main(String[] args) {
         
