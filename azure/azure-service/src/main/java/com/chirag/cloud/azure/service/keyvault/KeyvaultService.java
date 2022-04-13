@@ -2,6 +2,7 @@ package com.chirag.cloud.azure.service.keyvault;
 
 import org.springframework.stereotype.Service;
 
+import com.azure.identity.DefaultAzureCredentialBuilder;
 import com.azure.identity.ManagedIdentityCredential;
 import com.azure.identity.ManagedIdentityCredentialBuilder;
 import com.azure.security.keyvault.secrets.SecretClient;
@@ -12,12 +13,14 @@ import com.azure.security.keyvault.secrets.models.KeyVaultSecret;
 public class KeyvaultService {
 	
 	private final String managedIdentityClientId = "<MagedIdentityClientId>";
+	private final String keyVaultUri = "https://<keyvaultname>.vault.usgovcloudapi.net/";
 
 	public String getKeyValue(String key) {
 		ManagedIdentityCredential credential = new ManagedIdentityCredentialBuilder().clientId(managedIdentityClientId).build();
 		SecretClient secretClient = new SecretClientBuilder()
-				.vaultUrl("<keyvaultURL>")
-				.credential(credential)
+				.vaultUrl(keyVaultUri)
+				.credential(new DefaultAzureCredentialBuilder().build())
+				//.credential(credential)
 				.buildClient();
 		
 		

@@ -39,8 +39,8 @@ public class BlobStorageService {
 	//Get connectionSTring from "Access keys"
 	
 	public BlobStorageService() {
-		blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
-		blobContainerClient = blobServiceClient.getBlobContainerClient("test-container");
+		//blobServiceClient = new BlobServiceClientBuilder().connectionString(connectionString).buildClient();
+		//blobContainerClient = blobServiceClient.getBlobContainerClient("test-container");
 	}
 
 	public void BlobStorageService1() {
